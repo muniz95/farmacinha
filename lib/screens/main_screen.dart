@@ -4,8 +4,8 @@ import 'package:farmacinha/widgets/medicine_card.dart';
 import 'package:farmacinha/widgets/spinner.dart';
 import 'package:flutter/material.dart';
 
-class MainPage extends StatelessWidget {
-  MainPage({Key key, this.title}) : super(key: key);
+class MainScreen extends StatelessWidget {
+  MainScreen({Key key, this.title}) : super(key: key);
 
   final String title;
   
@@ -18,7 +18,7 @@ class MainPage extends StatelessWidget {
       appBar: new AppBar(
         title: new Text(title),
       ),
-      drawer: const FarmacinhaDrawer(),
+      drawer: const AppDrawer(),
       body: Container(
         margin: EdgeInsets.all(10.0),
         child: StreamBuilder(

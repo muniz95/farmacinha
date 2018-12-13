@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class FarmacinhaDrawer extends StatelessWidget {
-  const FarmacinhaDrawer();
+class AppDrawer extends StatelessWidget {
+  const AppDrawer();
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +28,7 @@ class FarmacinhaDrawer extends StatelessWidget {
             leading: Icon(Icons.local_hospital),
             title: Text('Medicamentos'),
             onTap: () {
+              Navigator.pop(context);
               Navigator.of(context).pushNamed('medicine/list');
             },
           ),

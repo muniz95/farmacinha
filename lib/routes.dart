@@ -6,5 +6,5 @@ import 'package:flutter/material.dart';
 final routes = {
   'medicine/list': (BuildContext ctx) => new MedicineListScreen(),
   'medicine/form': (BuildContext ctx) => new MedicineFormScreen(),
-  'home': (BuildContext ctx) => new MainPage(),
+  'home': (BuildContext ctx) => new MainScreen(),
 };

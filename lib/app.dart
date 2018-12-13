@@ -14,7 +14,7 @@ class FarmacinhaApp extends StatelessWidget {
           primarySwatch: Colors.green,
           accentColor: Colors.redAccent
         ),
-        home: new MainPage(title: 'Lista de medicamentos'),
+        home: new MainScreen(title: 'Lista de medicamentos'),
       )
     );
   }
