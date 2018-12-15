@@ -1,6 +1,6 @@
-import 'package:farmacinha/bloc/medicine.dart';
+import 'package:farmacinha/bloc/medicine_bloc.dart';
 import 'package:farmacinha/bloc/provider.dart';
-import 'package:farmacinha/models/medicine.dart';
+import 'package:farmacinha/models/medicine_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

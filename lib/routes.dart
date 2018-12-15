@@ -1,6 +1,6 @@
 import 'package:farmacinha/screens/main_screen.dart';
-import 'package:farmacinha/screens/medicine_form.dart';
-import 'package:farmacinha/screens/medicine_list.dart';
+import 'package:farmacinha/screens/medicine_form_screen.dart';
+import 'package:farmacinha/screens/medicine_list_screen.dart';
 import 'package:flutter/material.dart';
 
 final routes = {

@@ -1,7 +1,10 @@
-import 'package:farmacinha/models/medicine.dart';
+import 'package:farmacinha/models/medicine_model.dart';
+import 'package:farmacinha/services/medicine_service.dart';
 import 'package:rxdart/rxdart.dart';
 
 class MedicineBloc {
+  final MedicineService _service = new MedicineService();
+
   final BehaviorSubject<int> _total = BehaviorSubject<int>();
   Stream<int> get total => _total.stream;
   
@@ -32,24 +35,24 @@ class MedicineBloc {
 
   fetchMedicineList() {
     if (_medicineList.value == null) {
-      Future.delayed(Duration(seconds: 3), () {
-        _medicineList.add(
-          new List<Medicine>()..addAll([
-            Medicine(name: 'teste'), Medicine(name: 'teste'), Medicine(name: 'teste'), Medicine(name: 'teste')
-          ])
-        );
-      });
+      _service.getAllMedicines().then(_medicineList.add);
     }
   }
 
-  addMedicine(Medicine medicine) {
+  addMedicine(Medicine medicine) async {
     List<Medicine> medicines = _medicineList.value;
-    _medicineList.add(medicines..add(medicine));
+    if (await _service.saveMedicine(medicine) != null) {
+      _medicineList.add(medicines..add(medicine));
+    }
   }
 
-  updateMedicine(Medicine medicine) {
-    List<Medicine> medicines = _medicineList.value;
-    _medicineList.add(medicines..add(medicine));
+  updateMedicine(Medicine medicine) async {
+    if (await _service.updateMedicine(medicine) != null) {
+      List<Medicine> medicines = _medicineList.value ?? new List<Medicine>();
+      medicines.removeWhere((Medicine t) => t.id == medicine.id);
+      medicines.add(medicine);
+      _medicineList.add(medicines);
+    }
   }
 
   void dispose() {
