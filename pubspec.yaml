@@ -10,13 +10,13 @@ description: A new Flutter project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.0.0-dev.68.0 <3.0.0"
+  sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
-  rxdart: ^0.18.1
+  rxdart: ^0.22.0
   sqflite: '^0.12.1'
   path_provider: ^0.4.1
 

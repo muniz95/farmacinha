@@ -1,6 +1,6 @@
-import 'package:farmacinha/bloc/medicine_bloc.dart';
+import 'package:farmacinha/bloc/medicine.bloc.dart';
 import 'package:farmacinha/bloc/provider.dart';
-import 'package:farmacinha/models/medicine_model.dart';
+import 'package:farmacinha/models/medicine.model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -12,11 +12,16 @@ class MedicineFormScreen extends StatefulWidget {
 class _MedicineFormScreenState extends State<MedicineFormScreen> {
   final formKey = new GlobalKey<FormState>();
   final scaffoldKey = new GlobalKey<ScaffoldState>();
+  MedicineBloc _bloc;
+
+  @override
+  void didChangeDependencies() {
+    _bloc ??= Provider.of(context).medicinebloc;
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final _bloc = Provider.of(context).medicinebloc;
-
     return new StreamBuilder(
       stream: _bloc.selectedMedicine,
       builder: (BuildContext context, AsyncSnapshot snapshot) =>
@@ -70,6 +75,7 @@ class _MedicineFormScreenState extends State<MedicineFormScreen> {
     new Padding(
       padding: const EdgeInsets.all(8.0),
       child: new TextFormField(
+        textCapitalization: TextCapitalization.sentences,
         initialValue: medicine.name,
         onSaved: (val) {
           medicine.name = val;

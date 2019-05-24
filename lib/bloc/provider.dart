@@ -1,4 +1,4 @@
-import 'package:farmacinha/bloc/medicine_bloc.dart';
+import 'package:farmacinha/bloc/medicine.bloc.dart';
 import 'package:flutter/material.dart';
 
 class Provider extends InheritedWidget {
@@ -13,6 +13,6 @@ class Provider extends InheritedWidget {
   }
 
   static Provider of(BuildContext context) {
-    return (context.inheritFromWidgetOfExactType(Provider) as Provider);
+    return context.inheritFromWidgetOfExactType(Provider);
   }
 }

@@ -1,5 +1,5 @@
-import 'package:farmacinha/models/medicine_model.dart';
-import 'package:farmacinha/services/medicine_service.dart';
+import 'package:farmacinha/models/medicine.model.dart';
+import 'package:farmacinha/services/medicine.service.dart';
 import 'package:rxdart/rxdart.dart';
 
 class MedicineBloc {

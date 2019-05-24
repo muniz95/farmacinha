@@ -1,7 +1,8 @@
+import 'package:farmacinha/bloc/medicine.bloc.dart';
 import 'package:farmacinha/bloc/provider.dart';
-import 'package:farmacinha/models/medicine_model.dart';
-import 'package:farmacinha/widgets/drawer.dart';
-import 'package:farmacinha/widgets/spinner.dart';
+import 'package:farmacinha/models/medicine.model.dart';
+import 'package:farmacinha/components/drawer.dart';
+import 'package:farmacinha/components/spinner.component.dart';
 import 'package:flutter/material.dart';
 
 class MedicineListScreen extends StatefulWidget{
@@ -11,19 +12,30 @@ class MedicineListScreen extends StatefulWidget{
 
 }
 
-
 class _MedicineListScreenState extends State<MedicineListScreen> with TickerProviderStateMixin {
+  MedicineBloc _bloc;
+
+  @override
+  void didChangeDependencies() {
+    _bloc ??= Provider.of(context).medicinebloc;
+    super.didChangeDependencies();
+  }
+
+  @override
+  void dispose() {
+    _bloc.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final bloc = Provider.of(context).medicinebloc;
     return Scaffold(
       appBar: AppBar(),
       drawer: const AppDrawer(),
       body: Container(
         child: StreamBuilder(
-          initialData: bloc.fetchMedicineList(),
-          stream: bloc.medicineList,
+          initialData: _bloc.fetchMedicineList(),
+          stream: _bloc.medicineList,
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return const Spinner();
@@ -45,7 +57,7 @@ class _MedicineListScreenState extends State<MedicineListScreen> with TickerProv
                         leading: IconButton(
                           icon: Icon(Icons.edit),
                           onPressed: () {
-                            bloc.selectMedicine(medicines[index]);
+                            _bloc.selectMedicine(medicines[index]);
                             Navigator.of(context).pushNamed('medicine/form');
                           },
                         ),
@@ -72,7 +84,7 @@ class _MedicineListScreenState extends State<MedicineListScreen> with TickerProv
         backgroundColor: Colors.green,
         child: Icon(Icons.add),
         onPressed: () {
-          bloc.selectMedicine(Medicine());
+          _bloc.selectMedicine(Medicine());
           Navigator.of(context).pushNamed('medicine/form');
         },
       ),

@@ -1,7 +1,7 @@
 import 'package:farmacinha/bloc/provider.dart';
-import 'package:farmacinha/widgets/drawer.dart';
-import 'package:farmacinha/widgets/medicine_card.dart';
-import 'package:farmacinha/widgets/spinner.dart';
+import 'package:farmacinha/components/drawer.dart';
+import 'package:farmacinha/components/medicine_card.component.dart';
+import 'package:farmacinha/components/spinner.component.dart';
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatelessWidget {

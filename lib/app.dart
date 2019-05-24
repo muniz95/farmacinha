@@ -1,6 +1,6 @@
 import 'package:farmacinha/bloc/provider.dart';
 import 'package:farmacinha/routes.dart';
-import 'package:farmacinha/screens/main_screen.dart';
+import 'package:farmacinha/screens/main.screen.dart';
 import 'package:flutter/material.dart';
 
 class FarmacinhaApp extends StatelessWidget {

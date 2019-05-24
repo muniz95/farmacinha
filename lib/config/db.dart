@@ -1,5 +1,4 @@
 import 'dart:io' as io;
-import 'package:farmacinha/models/medicine_model.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -19,7 +18,7 @@ class DB {
 
   DB.internal();
 
-  initDb() async {
+  Future<Database> initDb() async {
     io.Directory documentsDirectory = await getApplicationDocumentsDirectory();
     String path = join(documentsDirectory.path, "main.db");
     var theDb = await openDatabase(path, version: 1, onCreate: _onCreate);
@@ -36,37 +35,5 @@ class DB {
       )
     """);
     print("Created tables");
-  }
-
-  Future<int> saveMedicine(Medicine medicine) async {
-    var dbClient = await db;
-    int res = await dbClient.insert("Medicine", medicine.toMap());
-    return res;
-  }
-
-  Future<int> updateMedicine(Medicine medicine) async {
-    var dbClient = await db;
-    int res = await dbClient.update("Medicine", medicine.toMap(), where: 'id = ${medicine.id}');
-    return res;
-  }
-
-  Future<int> deleteMedicines() async {
-    var dbClient = await db;
-    int res = await dbClient.delete("Medicine");
-    return res;
-  }
-
-  Future<List<Medicine>> getMedicines() async {
-    var dbClient = await db;
-    List<Medicine> medicines = new List<Medicine>();
-    List<Map> medicineRaw = await dbClient.query("Medicine");
-    
-    if (medicineRaw.length > 0) {
-      medicineRaw.forEach((medicine) {
-        medicines.add(new Medicine.map(medicine));
-      });
-    }
-
-    return medicines;
   }
 }
