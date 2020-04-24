@@ -59,9 +59,15 @@ class MainScreen extends StatelessWidget {
                     Navigator.of(context).pushNamed('doctor/form');
                   },
                 ),
-                title: Text(
-                  doctors[index].toString(),
-                  style: TextStyle(color: Colors.white),
+                title: InkWell(
+                  child: Text(
+                    doctors[index].toString(),
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onTap: () {
+                    bloc.selectDoctor(doctors[index]);
+                    Navigator.of(context).pushReplacementNamed("doctor/details");
+                  },
                 ),
               ),
             ),

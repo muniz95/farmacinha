@@ -23,16 +23,14 @@ class _MedicineFormScreenState extends State<MedicineFormScreen> {
   @override
   Widget build(BuildContext context) {
     return new StreamBuilder(
-      stream: _bloc.selectedMedicine,
-      builder: (BuildContext context, AsyncSnapshot snapshot) =>
-        snapshot.hasData 
-          ? _hasDataWidget(_bloc, snapshot.data)
-          : _loadingDataWidget()
-    );
+        stream: _bloc.selectedMedicine,
+        builder: (BuildContext context, AsyncSnapshot snapshot) =>
+            snapshot.hasData
+                ? _hasDataWidget(_bloc, snapshot.data)
+                : _loadingDataWidget());
   }
 
-  Widget _hasDataWidget(MedicineBloc _bloc, Medicine medicine) =>
-    new Scaffold(
+  Widget _hasDataWidget(MedicineBloc _bloc, Medicine medicine) => new Scaffold(
       appBar: new AppBar(
         title: new Text("Cadastro de medicamentos"),
       ),
@@ -55,39 +53,34 @@ class _MedicineFormScreenState extends State<MedicineFormScreen> {
           ],
           crossAxisAlignment: CrossAxisAlignment.center,
         ),
-      )
-    );
+      ));
 
-  Widget _loadingDataWidget() =>
-    new Center(
-      child: new Dialog(
-        child: new Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            new CircularProgressIndicator(),
-            new Text("Loading"),
-          ],
+  Widget _loadingDataWidget() => new Center(
+        child: new Dialog(
+          child: new Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              new CircularProgressIndicator(),
+              new Text("Loading"),
+            ],
+          ),
         ),
-      ),
-    );
+      );
 
-  Padding _nameField(Medicine medicine) =>
-    new Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: new TextFormField(
-        textCapitalization: TextCapitalization.sentences,
-        initialValue: medicine.name,
-        onSaved: (val) {
-          medicine.name = val;
-        },
-        validator: (val) {
-          return val.length < 1
-              ? "Name must have atleast 1 chars"
-              : null;
-        },
-        decoration: new InputDecoration(labelText: "Nome"),
-      ),
-    );
+  Padding _nameField(Medicine medicine) => new Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: new TextFormField(
+          textCapitalization: TextCapitalization.sentences,
+          initialValue: medicine.name,
+          onSaved: (val) {
+            medicine.name = val;
+          },
+          validator: (val) {
+            return val.length < 1 ? "Name must have atleast 1 chars" : null;
+          },
+          decoration: new InputDecoration(labelText: "Nome"),
+        ),
+      );
 
   void _submit(MedicineBloc bloc, Medicine medicine) async {
     final form = formKey.currentState;
@@ -112,5 +105,4 @@ class _MedicineFormScreenState extends State<MedicineFormScreen> {
       child: new Text("Salvar"),
     );
   }
-
 }

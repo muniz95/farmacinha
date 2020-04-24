@@ -23,16 +23,14 @@ class _DoctorFormScreenState extends State<DoctorFormScreen> {
   @override
   Widget build(BuildContext context) {
     return new StreamBuilder(
-      stream: _bloc.selectedDoctor,
-      builder: (BuildContext context, AsyncSnapshot snapshot) =>
-        snapshot.hasData 
-          ? _hasDataWidget(_bloc, snapshot.data)
-          : _loadingDataWidget()
-    );
+        stream: _bloc.selectedDoctor,
+        builder: (BuildContext context, AsyncSnapshot snapshot) =>
+            snapshot.hasData
+                ? _hasDataWidget(_bloc, snapshot.data)
+                : _loadingDataWidget());
   }
 
-  Widget _hasDataWidget(DoctorBloc _bloc, Doctor doctor) =>
-    new Scaffold(
+  Widget _hasDataWidget(DoctorBloc _bloc, Doctor doctor) => new Scaffold(
       appBar: new AppBar(
         title: new Text("Cadastro de médicos"),
       ),
@@ -57,76 +55,67 @@ class _DoctorFormScreenState extends State<DoctorFormScreen> {
           ],
           crossAxisAlignment: CrossAxisAlignment.center,
         ),
-      )
-    );
+      ));
 
-  Widget _loadingDataWidget() =>
-    new Center(
-      child: new Dialog(
-        child: new Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            new CircularProgressIndicator(),
-            new Text("Loading"),
-          ],
+  Widget _loadingDataWidget() => new Center(
+        child: new Dialog(
+          child: new Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              new CircularProgressIndicator(),
+              new Text("Loading"),
+            ],
+          ),
         ),
-      ),
-    );
+      );
 
-  Padding _nameField(Doctor doctor) =>
-    new Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: new TextFormField(
-        textCapitalization: TextCapitalization.sentences,
-        initialValue: doctor.name,
-        onSaved: (val) {
-          doctor.name = val;
-        },
-        validator: (val) {
-          return val.length < 1
-              ? "Name must have atleast 1 chars"
-              : null;
-        },
-        decoration: new InputDecoration(labelText: "Nome"),
-      ),
-    );
+  Padding _nameField(Doctor doctor) => new Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: new TextFormField(
+          textCapitalization: TextCapitalization.sentences,
+          initialValue: doctor.name,
+          onSaved: (val) {
+            doctor.name = val;
+          },
+          validator: (val) {
+            return val.length < 1 ? "Name must have atleast 1 chars" : null;
+          },
+          decoration: new InputDecoration(labelText: "Nome"),
+        ),
+      );
 
-  Padding _crmField(Doctor doctor) =>
-    new Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: new TextFormField(
-        keyboardType: TextInputType.number,
-        textCapitalization: TextCapitalization.sentences,
-        initialValue: doctor.crm.toString(),
-        onSaved: (val) {
-          doctor.crm = int.parse(val);
-        },
-        validator: (val) {
-          return val.length < 1
-              ? "CRM must have atleast 1 chars"
-              : null;
-        },
-        decoration: new InputDecoration(labelText: "CRM"),
-      ),
-    );
+  Padding _crmField(Doctor doctor) => new Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: new TextFormField(
+          keyboardType: TextInputType.number,
+          textCapitalization: TextCapitalization.sentences,
+          initialValue: doctor.crm.toString(),
+          onSaved: (val) {
+            doctor.crm = int.parse(val);
+          },
+          validator: (val) {
+            return val.length < 1 ? "CRM must have atleast 1 chars" : null;
+          },
+          decoration: new InputDecoration(labelText: "CRM"),
+        ),
+      );
 
-  Padding _specialityField(Doctor doctor) =>
-    new Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: new TextFormField(
-        textCapitalization: TextCapitalization.sentences,
-        initialValue: doctor.speciality,
-        onSaved: (val) {
-          doctor.speciality = val;
-        },
-        validator: (val) {
-          return val.length < 1
-              ? "Speciality must have atleast 1 chars"
-              : null;
-        },
-        decoration: new InputDecoration(labelText: "Especialidade"),
-      ),
-    );
+  Padding _specialityField(Doctor doctor) => new Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: new TextFormField(
+          textCapitalization: TextCapitalization.sentences,
+          initialValue: doctor.speciality,
+          onSaved: (val) {
+            doctor.speciality = val;
+          },
+          validator: (val) {
+            return val.length < 1
+                ? "Speciality must have atleast 1 chars"
+                : null;
+          },
+          decoration: new InputDecoration(labelText: "Especialidade"),
+        ),
+      );
 
   void _submit(DoctorBloc bloc, Doctor doctor) async {
     final form = formKey.currentState;
@@ -151,5 +140,4 @@ class _DoctorFormScreenState extends State<DoctorFormScreen> {
       child: new Text("Salvar"),
     );
   }
-
 }
