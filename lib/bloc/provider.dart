@@ -1,9 +1,11 @@
+import 'package:farmacinha/bloc/doctor.bloc.dart';
 import 'package:farmacinha/bloc/medicine.bloc.dart';
 import 'package:flutter/material.dart';
 
 class Provider extends InheritedWidget {
   final Widget child;
   final MedicineBloc medicinebloc = new MedicineBloc();
+  final DoctorBloc doctorbloc = new DoctorBloc();
 
   Provider({this.child}) : super(child: child);
 
@@ -13,6 +15,6 @@ class Provider extends InheritedWidget {
   }
 
   static Provider of(BuildContext context) {
-    return context.inheritFromWidgetOfExactType(Provider);
+    return context.dependOnInheritedWidgetOfExactType();
   }
 }

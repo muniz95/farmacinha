@@ -34,6 +34,24 @@ class DB {
         hourSpan INTEGER
       )
     """);
+    await db.execute("""
+      CREATE TABLE Doctor(
+        id INTEGER PRIMARY KEY,
+        crm INTEGER,
+        name TEXT,
+        speciality TEXT,
+        lastAppointment DATETIME
+      )
+    """);
+    await db.execute("""
+      CREATE TABLE Local(
+        id INTEGER PRIMARY KEY,
+        doctorid INTEGER,
+        name TEXT,
+        longitude REAL,
+        latitude REAL
+      )
+    """);
     print("Created tables");
   }
 }
