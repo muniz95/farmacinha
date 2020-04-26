@@ -12,7 +12,8 @@ class DoctorBloc {
   Stream<List<Doctor>> get doctorList => _doctorList.stream;
   
   final BehaviorSubject<Doctor> _selectedDoctor = BehaviorSubject<Doctor>();
-  Stream<Doctor> get selectedDoctor => _selectedDoctor.stream;
+  Stream<Doctor> get selectedDoctorStream => _selectedDoctor.stream;
+  Doctor get selectedDoctor => _selectedDoctor.stream.value;
   
   int get totalValue => _total.value;
 
@@ -29,7 +30,9 @@ class DoctorBloc {
 
   addDoctor(Doctor doctor) async {
     List<Doctor> doctors = _doctorList.value;
-    if (await _service.saveDoctor(doctor) != null) {
+    int doctorId = await _service.saveDoctor(doctor);
+    if (doctorId != null) {
+      doctor.id = doctorId;
       _doctorList.add(doctors..add(doctor));
     }
   }

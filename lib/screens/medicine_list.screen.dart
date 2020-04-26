@@ -34,7 +34,7 @@ class _MedicineListScreenState extends State<MedicineListScreen> with TickerProv
       drawer: const AppDrawer(),
       body: Container(
         child: StreamBuilder(
-          initialData: _bloc.fetchMedicineList(),
+          initialData: _bloc.fetchAllMedicines(),
           stream: _bloc.medicineList,
           builder: (context, snapshot) {
             if (!snapshot.hasData) {

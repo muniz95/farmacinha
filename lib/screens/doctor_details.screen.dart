@@ -26,8 +26,8 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen>
 
   @override
   void dispose() {
-    _doctorbloc.dispose();
-    _medicinebloc.dispose();
+    // _doctorbloc.dispose();
+    // _medicinebloc.dispose();
     super.dispose();
   }
 
@@ -38,7 +38,7 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen>
       drawer: const AppDrawer(),
       body: Container(
         child: StreamBuilder(
-          stream: _doctorbloc.selectedDoctor,
+          stream: _doctorbloc.selectedDoctorStream,
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return const Spinner();
@@ -46,53 +46,69 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen>
 
             Doctor doctor = snapshot.data as Doctor;
             return Container(
-              child: Center(
-                child: Column(
-                  children: <Widget>[
-                    Text(doctor.name),
-                    Text(doctor.crm.toString()),
-                    Text(doctor.speciality),
-                    StreamBuilder(
-                      initialData: _medicinebloc.fetchMedicineList(),
-                      stream: _medicinebloc.medicineList,
-                      builder: (BuildContext context, AsyncSnapshot snapshot) {
-                        if (!snapshot.hasData) {
-                          return Text("Nenhum medicamento encontrado");
-                        }
-                        List<Medicine> medicines =
-                            snapshot.data as List<Medicine>;
-                        return Flexible(
-                          child: ListView.builder(
-                              itemCount: medicines.length,
-                              padding: new EdgeInsets.only(top: 5.0),
-                              itemBuilder: (context, index) {
-                                return Container(
-                                  margin: EdgeInsets.only(top: 15.0),
-                                  child: Card(
-                                      color: Colors.green,
-                                      margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
-                                      child: ListTile(
-                                        leading: IconButton(
-                                          icon: Icon(Icons.edit),
-                                          onPressed: () {
-                                            _medicinebloc.selectMedicine(
-                                                medicines[index]);
-                                            Navigator.of(context)
-                                                .pushNamed('medicine/form');
-                                          },
-                                        ),
-                                        title: Text(
-                                          medicines[index].name,
-                                          style: TextStyle(color: Colors.white),
-                                        ),
-                                      )),
-                                );
-                              }),
-                        );
-                      },
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          doctor.name,
+                          style: TextStyle(fontSize: 32),
+                        ),
+                        Text(
+                          "CRM: ${doctor.crm}",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        Text(
+                          "Especialidade: ${doctor.speciality}",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                  StreamBuilder(
+                    initialData: _medicinebloc.fetchMedicineList(doctor),
+                    stream: _medicinebloc.medicineList,
+                    builder: (BuildContext context, AsyncSnapshot snapshot) {
+                      if (!snapshot.hasData) {
+                        return Text("Nenhum medicamento encontrado");
+                      }
+                      List<Medicine> medicines =
+                          snapshot.data as List<Medicine>;
+                      return Flexible(
+                        child: ListView.builder(
+                            itemCount: medicines.length,
+                            padding: new EdgeInsets.only(top: 5.0),
+                            itemBuilder: (context, index) {
+                              return Container(
+                                margin: EdgeInsets.only(top: 15.0),
+                                child: Card(
+                                    color: Colors.green,
+                                    margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                                    child: ListTile(
+                                      leading: IconButton(
+                                        icon: Icon(Icons.edit),
+                                        onPressed: () {
+                                          _medicinebloc
+                                              .selectMedicine(medicines[index]);
+                                          Navigator.of(context)
+                                              .pushNamed('medicine/form');
+                                        },
+                                      ),
+                                      title: Text(
+                                        medicines[index].timespan(),
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                    )),
+                              );
+                            }),
+                      );
+                    },
+                  ),
+                ],
               ),
             );
           },
@@ -102,7 +118,8 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen>
         backgroundColor: Colors.green,
         child: Icon(Icons.add),
         onPressed: () {
-          _medicinebloc.selectMedicine(Medicine());
+          var medicine = Medicine()..doctor = _doctorbloc.selectedDoctor;
+          _medicinebloc.selectMedicine(medicine);
           Navigator.of(context).pushNamed('medicine/form');
         },
       ),

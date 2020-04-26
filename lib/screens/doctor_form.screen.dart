@@ -23,11 +23,16 @@ class _DoctorFormScreenState extends State<DoctorFormScreen> {
   @override
   Widget build(BuildContext context) {
     return new StreamBuilder(
-        stream: _bloc.selectedDoctor,
-        builder: (BuildContext context, AsyncSnapshot snapshot) =>
-            snapshot.hasData
-                ? _hasDataWidget(_bloc, snapshot.data)
-                : _loadingDataWidget());
+        stream: _bloc.selectedDoctorStream,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData) {
+            Doctor doctor = snapshot.data as Doctor;
+            doctor.locals = [];
+            return _hasDataWidget(_bloc, doctor);
+          } else {
+            return _loadingDataWidget();
+          }
+        });
   }
 
   Widget _hasDataWidget(DoctorBloc _bloc, Doctor doctor) => new Scaffold(

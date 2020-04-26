@@ -66,7 +66,7 @@ class MainScreen extends StatelessWidget {
                   ),
                   onTap: () {
                     bloc.selectDoctor(doctors[index]);
-                    Navigator.of(context).pushReplacementNamed("doctor/details");
+                    Navigator.of(context).pushNamed("doctor/details");
                   },
                 ),
               ),

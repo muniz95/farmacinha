@@ -30,6 +30,7 @@ class DB {
     await db.execute("""
       CREATE TABLE Medicine(
         id INTEGER PRIMARY KEY,
+        doctorid INTEGER,
         name TEXT,
         hourSpan INTEGER
       )

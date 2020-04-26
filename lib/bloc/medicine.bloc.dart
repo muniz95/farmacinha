@@ -1,3 +1,4 @@
+import 'package:farmacinha/models/doctor.model.dart';
 import 'package:farmacinha/models/medicine.model.dart';
 import 'package:farmacinha/services/medicine.service.dart';
 import 'package:rxdart/rxdart.dart';
@@ -33,10 +34,12 @@ class MedicineBloc {
     _total.add(1);
   }
 
-  fetchMedicineList() {
-    if (_medicineList.value == null) {
-      _service.getAllMedicines().then(_medicineList.add);
-    }
+  fetchAllMedicines() {
+    _service.getAllMedicines().then(_medicineList.add);
+  }
+
+  fetchMedicineList(Doctor doctor) {
+    _service.getAllMedicinesByDoctor(doctor).then(_medicineList.add);
   }
 
   addMedicine(Medicine medicine) async {

@@ -38,7 +38,7 @@ class _MedicineFormScreenState extends State<MedicineFormScreen> {
         child: new Column(
           children: <Widget>[
             new Text(
-              "Nova tarefa",
+              "Novo medicamento",
               textScaleFactor: 2.0,
             ),
             new Form(
@@ -46,6 +46,7 @@ class _MedicineFormScreenState extends State<MedicineFormScreen> {
               child: new Column(
                 children: <Widget>[
                   _nameField(medicine),
+                  _hourSpanField(medicine),
                 ],
               ),
             ),
@@ -57,6 +58,7 @@ class _MedicineFormScreenState extends State<MedicineFormScreen> {
 
   Widget _loadingDataWidget() => new Center(
         child: new Dialog(
+          elevation: 0,
           child: new Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -79,6 +81,20 @@ class _MedicineFormScreenState extends State<MedicineFormScreen> {
             return val.length < 1 ? "Name must have atleast 1 chars" : null;
           },
           decoration: new InputDecoration(labelText: "Nome"),
+        ),
+      );
+
+  Padding _hourSpanField(Medicine medicine) => new Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: new TextFormField(
+          initialValue: medicine.hourSpan.toString(),
+          onSaved: (val) {
+            medicine.hourSpan = int.parse(val);
+          },
+          validator: (val) {
+            return val.length < 1 ? "Campo obrigatório" : null;
+          },
+          decoration: new InputDecoration(labelText: "Intervalo entre doses (horas)"),
         ),
       );
 
